@@ -29,3 +29,4 @@ start: $(INSTALL_STAMP)  ## Start the script
 .PHONY: test
 test: $(INSTALL_STAMP)  ## Unit tests
 	$(UV) run py.test test.py
+

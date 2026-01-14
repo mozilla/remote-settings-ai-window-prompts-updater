@@ -1,6 +1,9 @@
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
+# Installing git
+RUN apt update && apt install git -y
+
 # Install the project into `/app`
 WORKDIR /app
 
@@ -30,6 +33,12 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
+
+# Environment variables for running (can be overwritten)
+ENV AUTHORIZATION=""
+ENV GIT_TOKEN=""
+ENV ENVIRONMENT="dev"
+ENV DRY_RUN="0"
 
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []

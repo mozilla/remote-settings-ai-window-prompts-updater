@@ -1,9 +1,9 @@
 [project]
-name = "rs-script"
+name = "ai-window-remote-settings-prompts-update"
 version = "0.1.0"
-description = "A minimal Remote Settings cronjob script"
+description = "A script to update remote settings ai window prompts via cronjob"
 authors = [
-    {name = "Your Name", email = "you@example.com"},
+    {name = "Bryan Johns", email = "bjohns@mozilla.com"},
 ]
 license = {text = "MPLv2"}
 requires-python = "<4.0,>=3.12"
