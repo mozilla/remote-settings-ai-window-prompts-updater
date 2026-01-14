@@ -1,15 +1,5 @@
 # Remote Settings Ingestion Cronjob - `ai-window-prompts` Collection
 
-Turn a source of data into records on Remote Settings.
-
-* [Compliant with specs](https://remote-settings.readthedocs.io/en/latest/support.html#how-do-i-automate-the-publication-of-records-forever)
-* Dry run
-* Dual sign-off
-* Lint
-* Github Action CI
-* Tests with `kinto_http` mocks
-* Sentry integration
-
 ## Run
 
 With local Remote Settings server:
@@ -27,7 +17,9 @@ Create the source collection:
 $ curl -X PUT http://localhost:8888/v1/buckets/main-workspace/collections/ai-window-prompts
 ```
 
-And run the script:
+And run the script. 
+
+**Note:** $GIT_TOKEN requires access to [Firefox-AI/ai-window-remote-settings-prompts](https://github.com/Firefox-AI/ai-window-remote-settings-prompts):
 
 ```
 $ uv sync
@@ -44,16 +36,6 @@ Apply changes...3 operations ✅
 Request review...✅
 ```
 
-Or from the Docker container:
-
-```
-$ docker build -t ingestion:latest .
-$ docker run -e ENVIRONMENT=local ingestion:latest
-...
-...
-Records are in sync. Nothing to do ✅.
-```
-
 ### On Remote Settings official servers
 
 ([List of environment servers](https://remote-settings.readthedocs.io/en/latest/getting-started.html#environments))
@@ -66,12 +48,12 @@ And use it to run the script
 
 ```
 $ read -s BEARER
-$ AUTHORIZATION=$BEARER SERVER="http://remote-settings.mozilla.org/v1" python script.py
+$ AUTHORIZATION=$BEARER SERVER="http://remote-settings.mozilla.org/v1" GIT_TOKEN=$GIT_TOKEN python script.py
 ```
 
 **Using an account**:
 
 ```
 $ read -s PASSWD
-$ AUTHORIZATION=fxrelay-publisher:$PASSWD ENVIRONMENT=prod python script.py
+$ AUTHORIZATION=fxrelay-publisher:$PASSWD ENVIRONMENT=prod GIT_TOKEN=$GIT_TOKEN python script.py
 ```
