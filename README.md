@@ -19,7 +19,7 @@ $ curl -X PUT http://localhost:8888/v1/buckets/main-workspace/collections/ai-win
 
 And run the script. 
 
-**Note:** $GIT_TOKEN requires access to [Firefox-AI/ai-window-remote-settings-prompts](https://github.com/Firefox-AI/ai-window-remote-settings-prompts):
+**Note:** Provided `$GIT_TOKEN` must have access to [Firefox-AI/ai-window-remote-settings-prompts](https://github.com/Firefox-AI/ai-window-remote-settings-prompts):
 
 ```
 $ uv sync
