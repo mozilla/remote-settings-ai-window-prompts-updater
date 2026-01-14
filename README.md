@@ -1,4 +1,4 @@
-# Remote Settings Ingestion Cronjob Example
+# Remote Settings Ingestion Cronjob - `ai-window-prompts` Collection
 
 Turn a source of data into records on Remote Settings.
 
@@ -24,14 +24,14 @@ $ docker run --rm --detach \
 Create the source collection:
 
 ```
-$ curl -X PUT http://localhost:8888/v1/buckets/main-workspace/collections/product-integrity
+$ curl -X PUT http://localhost:8888/v1/buckets/main-workspace/collections/ai-window-prompts
 ```
 
 And run the script:
 
 ```
 $ uv sync
-$ SERVER="http://localhost:8888/v1" uv run script.py
+$ SERVER="http://localhost:8888/v1" GIT_TOKEN=$GIT_TOKEN uv run script.py
 
 Fetch server info...✅
 ⚠️ Anonymous
