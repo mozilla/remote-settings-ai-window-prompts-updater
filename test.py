@@ -74,6 +74,7 @@ def test_main_logged_in(mocked_client, capsys):
 
 
 # Tests for clone_repo function
+@mock.patch("script.GIT_TOKEN", "test_token")
 @mock.patch("script.subprocess.run")
 def test_clone_repo_success(mock_run, capsys):
     mock_run.return_value = mock.Mock(returncode=0, stderr="")
@@ -86,6 +87,7 @@ def test_clone_repo_success(mock_run, capsys):
     mock_run.assert_called_once()
 
 
+@mock.patch("script.GIT_TOKEN", "test_token")
 @mock.patch("script.subprocess.run")
 def test_clone_repo_failure(mock_run, capsys):
     mock_run.return_value = mock.Mock(returncode=1, stderr="Authentication failed")
@@ -97,7 +99,7 @@ def test_clone_repo_failure(mock_run, capsys):
     assert "ERROR cloning repo" in output
 
 
-@mock.patch.dict("os.environ", {"GIT_TOKEN": "test_token"})
+@mock.patch("script.GIT_TOKEN", "test_token")
 @mock.patch("script.subprocess.run")
 def test_clone_repo_with_token(mock_run):
     mock_run.return_value = mock.Mock(returncode=0, stderr="")
@@ -215,9 +217,7 @@ def test_sync_collection_with_creates():
 
 def test_sync_collection_with_updates():
     mock_client = mock.Mock()
-    mock_client.get_records.return_value = [
-        {"id": "test-1", "data": "old", "last_modified": 123}
-    ]
+    mock_client.get_records.return_value = [{"id": "test-1", "data": "old", "last_modified": 123}]
     mock_batch = mock.Mock()
     mock_batch.results.return_value = [{}]
     mock_client.batch.return_value.__enter__ = mock.Mock(return_value=mock_batch)

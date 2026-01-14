@@ -32,6 +32,9 @@ REQUEST_TIMEOUT_SECONDS = int(os.getenv("REQUEST_TIMEOUT_SECONDS", "30"))
 if ENVIRONMENT not in {"local", "dev", "stage", "prod"}:
     raise ValueError(f"'ENVIRONMENT={ENVIRONMENT}' is not a valid value")
 
+# Add token support to line 64
+GIT_TOKEN = os.getenv("GIT_TOKEN")
+
 # Constants for collection
 BUCKET = "main-workspace"
 AI_WINDOW_PROMPTS_COLLECTION = "ai-window-prompts"
@@ -53,10 +56,8 @@ def clone_repo(git_url):
     try:
         print(f"🔄 Cloning {git_url}...")
 
-        # Add token support to line 64
-        token = os.getenv("GIT_TOKEN")
-        if token:
-            git_url = git_url.replace("https://", f"https://{token}@")
+        if GIT_TOKEN:
+            git_url = git_url.replace("https://", f"https://{GIT_TOKEN}@")
         else:
             raise RuntimeError("GIT_TOKEN not found")
 
