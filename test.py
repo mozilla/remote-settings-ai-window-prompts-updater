@@ -215,9 +215,7 @@ def test_sync_collection_with_creates():
 
 def test_sync_collection_with_updates():
     mock_client = mock.Mock()
-    mock_client.get_records.return_value = [
-        {"id": "test-1", "data": "old", "last_modified": 123}
-    ]
+    mock_client.get_records.return_value = [{"id": "test-1", "data": "old", "last_modified": 123}]
     mock_batch = mock.Mock()
     mock_batch.results.return_value = [{}]
     mock_client.batch.return_value.__enter__ = mock.Mock(return_value=mock_batch)
