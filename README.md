@@ -1,5 +1,7 @@
 # Remote Settings Ingestion Cronjob - `ai-window-prompts` Collection
 
+This cronjob pushes changes to the [ai-window-remote-settings-prompts]("https://github.com/Firefox-AI/ai-window-remote-settings-prompts") to PROD Remote-Settings.
+
 ## Run
 
 With local Remote Settings server:
