@@ -57,6 +57,7 @@ jobs:
       - name: Run job from container
         run: |
           docker run -e SERVER="${SERVER}" \
+            -e GIT_TOKEN="${GIT_TOKEN}" \
             --network=host \
             cronjob:test
 
