@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SERVER: "http://localhost:8888/v1"
+      GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
     steps:
       - uses: actions/checkout@v6
       - name: Install uv
