@@ -1,6 +1,6 @@
 # Remote Settings Ingestion Cronjob - `ai-window-prompts` Collection
 
-This cronjob pushes changes to the [ai-window-remote-settings-prompts](https://github.com/Firefox-AI/ai-window-remote-settings-prompts) to PROD Remote-Settings.
+This repo contains code to update the [ai-window-remote-settings-prompts](https://github.com/Firefox-AI/ai-window-remote-settings-prompts) collection in PROD Remote-Settings. It is intended to be run as a scheduled job (cronjob).
 
 ## Run
 
