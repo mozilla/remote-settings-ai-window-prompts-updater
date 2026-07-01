@@ -205,7 +205,7 @@ def _collect_manifest_versions(prompts_v2_dir):
             if not version_dir.is_dir():
                 continue
             for f in sorted(version_dir.glob("*.json")):
-                seen = set()
+                seen_names = set()
                 for entry in _read_json_if_exists(f).get("modules", []):
                     name, version = entry.get("name"), entry.get("version")
                     if not name or version is None:
@@ -220,11 +220,11 @@ def _collect_manifest_versions(prompts_v2_dir):
                             f"{f}: module '{name}' version '{version}' must be "
                             "'major.minor' (e.g. '1.0')"
                         )
-                    if name in seen:
+                    if name in seen_names:
                         raise ValueError(
                             f"{f}: module '{name}' is listed more than once in `modules`"
                         )
-                    seen.add(name)
+                    seen_names.add(name)
                     versions[(feature_dir.name, name, _major_of(version))] = version
     return versions
 
