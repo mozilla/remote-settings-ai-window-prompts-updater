@@ -209,9 +209,7 @@ def _collect_manifest_versions(prompts_v2_dir):
                 for entry in _read_json_if_exists(f).get("modules", []):
                     name, ver = entry.get("name"), entry.get("version")
                     if not name or ver is None:
-                        raise ValueError(
-                            f"{f}: each `modules` entry needs a 'name' and 'version'"
-                        )
+                        raise ValueError(f"{f}: each `modules` entry needs a 'name' and 'version'")
                     if not re.fullmatch(r"v?\d+\.\d+", str(ver)):
                         raise ValueError(
                             f"{f}: module '{name}' version '{ver}' must be "
@@ -266,9 +264,7 @@ def collect_v2_records(prompts_v2_dir):
                     items.extend(records)
                     major = _major_of(version_dir.name)
                     if module_dir.name != "params" and records and major is not None:
-                        available_modules.add(
-                            (feature_dir.name, module_dir.name, major)
-                        )
+                        available_modules.add((feature_dir.name, module_dir.name, major))
 
     _require_manifest_content(manifest_versions, available_modules)
 

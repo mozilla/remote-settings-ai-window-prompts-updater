@@ -325,9 +325,7 @@ def test_collect_v2_records_rejects_manifest_module_without_content_dir(
     # ship a record that hard-fails Firefox assembly.
     params_dir = temp_v2_prompts_dir / "prompts_v2" / "features" / "chat" / "params" / "v1"
     with open(params_dir / "generic.json", "w") as f:
-        json.dump(
-            {"version": "1.0", "modules": [{"name": "identity", "version": "2.0"}]}, f
-        )
+        json.dump({"version": "1.0", "modules": [{"name": "identity", "version": "2.0"}]}, f)
 
     with pytest.raises(ValueError, match="no matching content director"):
         collect_v2_records(temp_v2_prompts_dir / "prompts_v2")
