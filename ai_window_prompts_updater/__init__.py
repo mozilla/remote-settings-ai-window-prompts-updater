@@ -207,12 +207,17 @@ def _collect_manifest_versions(prompts_v2_dir):
             for f in sorted(version_dir.glob("*.json")):
                 seen = set()
                 for entry in _read_json_if_exists(f).get("modules", []):
-                    name, ver = entry.get("name"), entry.get("version")
-                    if not name or ver is None:
+                    name, version = entry.get("name"), entry.get("version")
+                    if not name or version is None:
                         raise ValueError(f"{f}: each `modules` entry needs a 'name' and 'version'")
-                    if not re.fullmatch(r"v?\d+\.\d+", str(ver)):
+                    if not isinstance(version, str):
                         raise ValueError(
-                            f"{f}: module '{name}' version '{ver}' must be "
+                            f"{f}: module '{name}' version {version!r} must be a string "
+                            '(quote it in JSON, e.g. "1.0" not 1.0)'
+                        )
+                    if not re.fullmatch(r"v?\d+\.\d+", version):
+                        raise ValueError(
+                            f"{f}: module '{name}' version '{version}' must be "
                             "'major.minor' (e.g. '1.0')"
                         )
                     if name in seen:
@@ -220,7 +225,7 @@ def _collect_manifest_versions(prompts_v2_dir):
                             f"{f}: module '{name}' is listed more than once in `modules`"
                         )
                     seen.add(name)
-                    versions[(feature_dir.name, name, _major_of(ver))] = str(ver)
+                    versions[(feature_dir.name, name, _major_of(version))] = version
     return versions
 
 
@@ -331,15 +336,17 @@ def _collect_v2_params_records(version_dir, feature, version):
                 "which would clobber the record's computed identity fields; "
                 "remove them from the params file."
             )
-        items.append(
-            {
-                **json_data,
-                "id": f"{feature}--params--{_normalize_model(stem)}--{version}",
-                "kind": "params",
-                "feature": feature,
-                "model": stem,
-            }
-        )
+        this_record = {
+            **json_data,
+            "id": f"{feature}--params--{_normalize_model(stem)}--{version}",
+            "kind": "params",
+            "feature": feature,
+            "model": stem,
+        }
+        if isinstance(this_record.get("parameters"), dict):
+            this_record["parameters"] = json.dumps(this_record["parameters"])
+
+        items.append(this_record)
     return items
 
 
