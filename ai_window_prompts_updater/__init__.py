@@ -345,6 +345,8 @@ def _collect_v2_params_records(version_dir, feature, version):
         }
         if isinstance(this_record.get("parameters"), dict):
             this_record["parameters"] = json.dumps(this_record["parameters"])
+        if isinstance(this_record.get("model_details"), dict):
+            this_record["model_details"] = json.dumps(this_record["model_details"])
 
         items.append(this_record)
     return items
