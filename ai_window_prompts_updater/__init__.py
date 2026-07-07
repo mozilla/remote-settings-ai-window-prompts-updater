@@ -117,6 +117,7 @@ def get_item(major_version_dir, model_name):
     # Create a unique ID based on feature, version, and model
     data["id"] = f"{data['feature']}--{data['model'].replace('.', '-')}--{major_version_dir.stem}"
     data["parameters"] = json.dumps(data["parameters"])
+    data["model_details"] = json.dumps(data.get("model_details", {}))
 
     return data
 
