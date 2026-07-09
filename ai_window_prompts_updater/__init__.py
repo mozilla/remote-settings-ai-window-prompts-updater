@@ -84,7 +84,7 @@ def clone_repo(branch):
         return "", ""
 
 
-def fetch_current_prompts(repo_path):
+def fetch_current_prompts(repo_path, clean=True):
     prompts_dir = repo_path / "prompts"
     prompts_v2_dir = repo_path / "prompts_v2"
 
@@ -97,7 +97,7 @@ def fetch_current_prompts(repo_path):
             print(f"Found {len(v2_records)} v2 prompt records")
             records.extend(v2_records)
     finally:
-        if repo_path.parent.exists():
+        if clean and repo_path.parent.exists():
             shutil.rmtree(repo_path.parent)
             print("Cleaned up temporary directory")
 
