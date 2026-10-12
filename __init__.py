@@ -94,14 +94,12 @@ def fetch_current_prompts(repo_path):
         records = collect_prompts_and_params(prompts_dir)
         if prompts_v2_dir.exists():
             v2_records = collect_v2_records(prompts_v2_dir)
-            print(f"Found {len(v2_records)} v2 prompt records")
             records.extend(v2_records)
     finally:
         if repo_path.parent.exists():
             shutil.rmtree(repo_path.parent)
             print("Cleaned up temporary directory")
 
-        print(f"Found {len(records)} prompt records")
     return records
 
 

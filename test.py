@@ -473,7 +473,7 @@ def test_fetch_current_prompts_includes_v2(temp_v2_prompts_dir, capsys):
     assert len(legacy) == 1
     assert len(v2) >= 4
     output = capsys.readouterr().out
-    assert "v2 prompt records" in output
+    assert "prompt records" not in output
 
 
 @mock.patch("ai_window_prompts_updater.shutil.rmtree")
@@ -488,7 +488,7 @@ def test_fetch_current_prompts(mock_collect, mock_rmtree, temp_prompts_dir, caps
     mock_collect.assert_called_once()
     mock_rmtree.assert_called_once()
     output = capsys.readouterr().out
-    assert "Found 2 prompt records" in output
+    assert "prompt records" not in output
     assert "Cleaned up temporary directory" in output
 
 
